@@ -1,7 +1,37 @@
 {
-  "generatedAt": "2026-04-23T13:28:22.375Z",
+  "generatedAt": "2026-04-23T15:43:16.420Z",
   "sourceRepoWebBase": "https://github.com/magele758/ppeng-agent-core",
   "items": [
+    {
+      "id": "2026-04-23-does-learning-require-feeling-camero-b33071e4",
+      "outcome": "no-op",
+      "outcomeLabel": "未采纳",
+      "skipTag": "IRRELEVANT",
+      "title": "Does Learning Require Feeling? Cameron Berg on the latest AI Consciousness & Welfare Research",
+      "sourceUrl": "https://www.cognitiverevolution.ai/does-learning-require-feeling-cameron-berg-on-the-latest-ai-consciousness-welfare-research/",
+      "dateUtc": "2026-04-23T15:43:16.265Z",
+      "mergeCommit": null,
+      "commitUrl": null,
+      "reasonChosen": "",
+      "reasonSkipped": "决策：SKIP （与项目无关）",
+      "reasonFailed": "",
+      "summary": "决策：SKIP （与项目无关） — not applicable to this codebase 节选自意识/主观体验、可感、福利与 RL 的哲学-实验讨论，没有可落实在 TypeScript/Node 多智能体运行时里（会话、工具、MCP、Gateway、自愈等）的接口设计、实现方案或工程模式；与你们仓库的能力改进无对应需求。 Connection lost, reconnecting (attempt 1)... Retry attempt 1..."
+    },
+    {
+      "id": "2026-04-23-be-sinceerly-human-ai-to-undo-your-a-f494424d",
+      "outcome": "no-op",
+      "outcomeLabel": "未采纳",
+      "skipTag": "IRRELEVANT",
+      "title": "Be sinceerly human – AI to undo your AI writing",
+      "sourceUrl": "https://sinceerly.com/",
+      "dateUtc": "2026-04-23T15:41:37.000Z",
+      "mergeCommit": null,
+      "commitUrl": null,
+      "reasonChosen": "",
+      "reasonSkipped": "决策：SKIP （与项目无关）",
+      "reasonFailed": "",
+      "summary": "决策：SKIP （与项目无关） — 原文是 Gmail 用 Chrome 扩展、把「AI 味」邮件改得更像人写（去 em dash、套话、可控轻微笔误、BYOK 调 Anthropic 等）的产品与商业页，和本仓库的「多智能体会话/工具与 MCP/网关/SSE/Next 控制台/自愈与测试」职责与运行形态无对应落点；若强行关联只能算另做一个浏览器端/Gmail 集成产品，而非对本 TypeScript/Node 运行时能力的有意义增量。 （按你的要求，大多数这类来源都应判为 SKIP；本例属典型。）"
+    },
     {
       "id": "2026-04-23-rt-by-demishassabis-tpu-8t-optimized-82ef8cb7",
       "outcome": "no-op",
