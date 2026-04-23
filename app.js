@@ -13,20 +13,45 @@
 
   const els = {
     q: document.getElementById('q'),
+    outcomeFilters: document.getElementById('outcomeFilters'),
     groupedRecords: document.getElementById('groupedRecords'),
     listCount: document.getElementById('listCount'),
     loadError: document.getElementById('loadError')
   };
 
   let rawItems = [];
+  /** @type {HTMLInputElement[]} */
+  let outcomeCheckboxes = [];
+
+  function getSelectedOutcomes() {
+    const set = new Set();
+    for (const cb of outcomeCheckboxes) {
+      if (cb.checked) set.add(cb.value);
+    }
+    return set;
+  }
+
+  /** 日期新→旧，同日再按 id 稳定排序 */
+  function sortByDateDesc(a, b) {
+    const da = String(a.dateUtc || '');
+    const db = String(b.dateUtc || '');
+    const c = db.localeCompare(da);
+    if (c !== 0) return c;
+    return String(a.id || '').localeCompare(String(b.id || ''));
+  }
 
   function getFilteredItems() {
     let list = [...rawItems];
+    const selected = getSelectedOutcomes();
+    if (outcomeCheckboxes.length > 0) {
+      if (selected.size === 0) return [];
+      list = list.filter((i) => selected.has(i.outcome));
+    }
     const q = (els.q.value || '').trim().toLowerCase();
     if (q) {
       list = list.filter((i) => (i.title || '').toLowerCase().includes(q));
     }
-    list.sort((a, b) => String(b.dateUtc || '').localeCompare(String(a.dateUtc || '')));
+    list.sort(sortByDateDesc);
     return list;
   }
 
@@ -204,11 +229,43 @@
       parts.push(`${label} ${groupItems.length}`);
     }
 
-    if (total === 0) {
+    if (outcomeCheckboxes.length && getSelectedOutcomes().size === 0) {
+      els.listCount.textContent = '请至少勾选一种结果类型';
+    } else if (total === 0) {
       els.listCount.textContent = items.length === 0 && rawItems.length > 0 ? '无匹配' : '暂无数据';
     } else {
-      els.listCount.textContent = `共 ${total} 条 · ${parts.join('，')}`;
+      els.listCount.textContent = `共 ${total} 条（组内日期新→旧）· ${parts.join('，')}`;
     }
+  }
+
+  function buildOutcomeFilters() {
+    els.outcomeFilters.innerHTML = '';
+    const head = document.createElement('p');
+    head.className = 'outcome-filters-legend';
+    head.textContent = '结果类型';
+    els.outcomeFilters.appendChild(head);
+    const row = document.createElement('div');
+    row.className = 'outcome-filter-row';
+    outcomeCheckboxes = [];
+    for (const key of OUTCOME_ORDER) {
+      const id = `outcome-${key.replace(/[^a-z0-9-]/gi, '-')}`;
+      const label = document.createElement('label');
+      label.className = 'outcome-filter-label';
+      label.htmlFor = id;
+      const input = document.createElement('input');
+      input.type = 'checkbox';
+      input.id = id;
+      input.value = key;
+      input.checked = true;
+      input.addEventListener('change', () => renderList());
+      outcomeCheckboxes.push(input);
+      const span = document.createElement('span');
+      span.textContent = OUTCOME_LABELS[key] || key;
+      label.appendChild(input);
+      label.appendChild(span);
+      row.appendChild(label);
+    }
+    els.outcomeFilters.appendChild(row);
   }
 
   async function init() {
@@ -218,6 +275,7 @@
       const data = await res.json();
       rawItems = Array.isArray(data.items) ? data.items : [];
 
+      buildOutcomeFilters();
       els.q.addEventListener('input', () => renderList());
       renderList();
       els.loadError.hidden = true;
