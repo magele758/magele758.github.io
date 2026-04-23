@@ -299,6 +299,17 @@ main.container {
   word-break: break-word;
 }
 
+.skip-tag {
+  flex-shrink: 0;
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  padding: 0.15rem 0.4rem;
+  border: 1px dashed var(--border);
+  border-radius: 4px;
+  max-width: 100%;
+  word-break: break-word;
+}
+
 .record-head .record-title {
   margin: 0;
   flex: 1 1 200px;

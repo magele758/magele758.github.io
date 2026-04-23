@@ -89,13 +89,18 @@
       badge.className = 'outcome-badge';
       badge.textContent = item.outcomeLabel || item.outcome || '—';
       if (item.skipTag) {
-        badge.title = item.skipTag;
-        badge.textContent += ` · ${item.skipTag}`;
+        badge.title = `研究标签：${item.skipTag}`;
+        const tag = document.createElement('span');
+        tag.className = 'skip-tag';
+        tag.textContent = item.skipTag;
+        row.appendChild(badge);
+        row.appendChild(tag);
+      } else {
+        row.appendChild(badge);
       }
       const h3 = document.createElement('h3');
       h3.className = 'record-title';
       h3.textContent = item.title || item.id || '（无标题）';
-      row.appendChild(badge);
       row.appendChild(h3);
 
       const sourceP = document.createElement('p');
