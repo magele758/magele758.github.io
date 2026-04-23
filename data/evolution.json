@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-23T09:38:21.563Z",
+  "generatedAt": "2026-04-23T09:42:54.420Z",
   "agentRepo": "magele758/ppeng-agent-core",
   "stats": {
     "no-op": 168,
@@ -871,7 +871,7 @@
       "mergeCommit": "",
       "featurePathsCount": null,
       "skipType": "none",
-      "summary": "决策：SKIP — 未提供源文章节选，无法评估是否带来可落地的能力改进 `` PROCEED SKIP: … /Users/penglei/developer/self-test-grounding/ppeng-agent-core/.evolution-worktrees/2026-04-20 17-07-r1-food-security-looks-very-different-f-bc85f7bd` 里的多 Agent 运行时、Gateway、控制台与 self-heal 再给出结论。"
+      "summary": "决策：SKIP — 未提供源文章节选，无法评估是否带来可落地的能力改进 `` PROCEED SKIP: … <repo>/.evolution-worktrees/2026-04-20 17-07-r1-food-security-looks-very-different-f-bc85f7bd` 里的多 Agent 运行时、Gateway、控制台与 self-heal 再给出结论。"
     },
     {
       "id": "2026-04-20-maybe-robots-will-not-replace-us-at--8ce1f1b9",
@@ -1271,7 +1271,7 @@
       "mergeCommit": "",
       "featurePathsCount": null,
       "skipType": "",
-      "summary": "来源 - 来源正文摘录（抓取） 抓取来源正文失败：fetch failed 分支 测试命令 失败输出（摘录） `` publishAt Date.parse() 2026-04-18 04/18/2026 \"1\"`. That contradicts the tool contract in and can queue posts for the wrong instant depending on timezone parsing. The tests in [packages/core/test/social-schedule.test.js](/Users/penglei/developer/self-test-grounding/ppeng-agent-core/.evolution-worktrees/2026-04-18 09-36-r3-show-hn-agent-first"
+      "summary": "来源 - 来源正文摘录（抓取） 抓取来源正文失败：fetch failed 分支 测试命令 失败输出（摘录） `` publishAt Date.parse() 2026-04-18 04/18/2026 \"1\"`. That contradicts the tool contract in and can queue posts for the wrong instant depending on timezone parsing. The tests in [packages/core/test/social-schedule.test.js](<repo>/.evolution-worktrees/2026-04-18 09-36-r3-show-hn-agent-first"
     },
     {
       "id": "2026-04-18-show-hn-agent-cache-multi-tier-llm-t-d0675af8",
@@ -1287,7 +1287,7 @@
       "mergeCommit": "",
       "featurePathsCount": null,
       "skipType": "",
-      "summary": "来源 - 来源正文摘录（抓取） 抓取来源正文失败：fetch failed 分支 测试命令 失败输出（摘录） ``` Reading additional input from stdin... OpenAI Codex v0.121.0 (research preview) -------- workdir: /Users/penglei/developer/self-test-grounding/ppeng-agent-core/.evolution-worktrees/2026-04-18 09-36-r3-show-hn-agent-cache-multi-tier-llm-t-d0675af8 model: gpt-5.4 provider: openai approval: never sandbox: workspace-write [workdir, /tmp, $TMPD"
+      "summary": "来源 - 来源正文摘录（抓取） 抓取来源正文失败：fetch failed 分支 测试命令 失败输出（摘录） ``` Reading additional input from stdin... OpenAI Codex v0.121.0 (research preview) -------- workdir: <repo>/.evolution-worktrees/2026-04-18 09-36-r3-show-hn-agent-cache-multi-tier-llm-t-d0675af8 model: gpt-5.4 provider: openai approval: never sandbox: workspace-write [workdir, /tmp, $TMPD"
     },
     {
       "id": "2026-04-18-show-hn-clamp-web-analytics-your-ai--393ba111",
@@ -1399,7 +1399,7 @@
       "mergeCommit": "",
       "featurePathsCount": null,
       "skipType": "",
-      "summary": "来源 - 来源正文摘录（抓取） 抓取来源正文失败：fetch failed 分支 测试命令 失败输出（摘录） ``` Reading additional input from stdin... OpenAI Codex v0.121.0 (research preview) -------- workdir: /Users/penglei/developer/self-test-grounding/ppeng-agent-core/.evolution-worktrees/2026-04-18 09-36-r3-show-hn-agent-citizen-your-ai-agents-3ec954c2 model: gpt-5.4 provider: openai approval: never sandbox: workspace-write [workdir, /tmp, $TMPD"
+      "summary": "来源 - 来源正文摘录（抓取） 抓取来源正文失败：fetch failed 分支 测试命令 失败输出（摘录） ``` Reading additional input from stdin... OpenAI Codex v0.121.0 (research preview) -------- workdir: <repo>/.evolution-worktrees/2026-04-18 09-36-r3-show-hn-agent-citizen-your-ai-agents-3ec954c2 model: gpt-5.4 provider: openai approval: never sandbox: workspace-write [workdir, /tmp, $TMPD"
     },
     {
       "id": "2026-04-18-our-ai-agent-generates-schema-aware--a1221cb2",
@@ -1495,7 +1495,7 @@
       "mergeCommit": "",
       "featurePathsCount": null,
       "skipType": "",
-      "summary": "来源 - 来源正文摘录（抓取） 抓取来源正文失败：fetch failed 分支 测试命令 失败输出（摘录） ``` Reading additional input from stdin... OpenAI Codex v0.121.0 (research preview) -------- workdir: /Users/penglei/developer/self-test-grounding/ppeng-agent-core/.evolution-worktrees/2026-04-18 09-36-r3-show-hn-agent-actions-a-framework-fo-39e7386e model: gpt-5.4 provider: openai approval: never sandbox: workspace-write [workdir, /tmp, $TMPD"
+      "summary": "来源 - 来源正文摘录（抓取） 抓取来源正文失败：fetch failed 分支 测试命令 失败输出（摘录） ``` Reading additional input from stdin... OpenAI Codex v0.121.0 (research preview) -------- workdir: <repo>/.evolution-worktrees/2026-04-18 09-36-r3-show-hn-agent-actions-a-framework-fo-39e7386e model: gpt-5.4 provider: openai approval: never sandbox: workspace-write [workdir, /tmp, $TMPD"
     },
     {
       "id": "2026-04-18-our-ai-agent-generates-schema-aware--a1221cb2",
@@ -1511,7 +1511,7 @@
       "mergeCommit": "",
       "featurePathsCount": null,
       "skipType": "",
-      "summary": "来源 - 来源正文摘录（抓取） 分支 测试命令 失败输出（摘录） ``` Reading additional input from stdin... OpenAI Codex v0.121.0 (research preview) -------- workdir: /Users/penglei/developer/self-test-grounding/ppeng-agent-core/.evolution-worktrees/2026-04-18 09-36-r3-our-ai-agent-generates-schema-aware--a1221cb2 model: gpt-5.4 provider: openai approval: never sandbox: workspace-write [workdir, /tmp, $TMPDIR, /Users/penglei/.co"
+      "summary": "来源 - 来源正文摘录（抓取） 分支 测试命令 失败输出（摘录） ``` Reading additional input from stdin... OpenAI Codex v0.121.0 (research preview) -------- workdir: <repo>/.evolution-worktrees/2026-04-18 09-36-r3-our-ai-agent-generates-schema-aware--a1221cb2 model: gpt-5.4 provider: openai approval: never sandbox: workspace-write [workdir, /tmp, $TMPDIR, ~/.co"
     },
     {
       "id": "2026-04-18-show-hn-agent-citizen-your-ai-agents-3ec954c2",
@@ -3319,7 +3319,7 @@
       "mergeCommit": "",
       "featurePathsCount": null,
       "skipType": "",
-      "summary": "来源 - 来源正文摘录（抓取） 抓取来源正文失败：fetch failed 分支 测试命令 失败输出（摘录） ``` 2026-04-13T17:11:31.903832Z ERROR codex core skills::loader: failed to stat skills entry /Users/penglei/.codex/skills/brainstorming (symlink): No such file or directory (os error 2) 2026-04-13T17:11:31.903893Z ERROR codex core skills::loader: failed to stat skills entry /Users/penglei/.codex/skills/ai-daily-digest (symlink): No such file o"
+      "summary": "来源 - 来源正文摘录（抓取） 抓取来源正文失败：fetch failed 分支 测试命令 失败输出（摘录） ``` 2026-04-13T17:11:31.903832Z ERROR codex core skills::loader: failed to stat skills entry ~/.codex/skills/brainstorming (symlink): No such file or directory (os error 2) 2026-04-13T17:11:31.903893Z ERROR codex core skills::loader: failed to stat skills entry ~/.codex/skills/ai-daily-digest (symlink): No such file o"
     },
     {
       "id": "2026-04-13-sqlite-3-53-0-5e042d5b",
@@ -3511,7 +3511,7 @@
       "mergeCommit": "",
       "featurePathsCount": null,
       "skipType": "",
-      "summary": "来源 - 来源正文摘录（抓取） 抓取来源正文失败：fetch failed 分支 测试命令 失败输出（摘录） ``` 2026-04-13T17:02:49.656082Z ERROR codex core skills::loader: failed to stat skills entry /Users/penglei/.codex/skills/brainstorming (symlink): No such file or directory (os error 2) 2026-04-13T17:02:49.656445Z ERROR codex core skills::loader: failed to stat skills entry /Users/penglei/.codex/skills/ai-daily-digest (symlink): No such file o"
+      "summary": "来源 - 来源正文摘录（抓取） 抓取来源正文失败：fetch failed 分支 测试命令 失败输出（摘录） ``` 2026-04-13T17:02:49.656082Z ERROR codex core skills::loader: failed to stat skills entry ~/.codex/skills/brainstorming (symlink): No such file or directory (os error 2) 2026-04-13T17:02:49.656445Z ERROR codex core skills::loader: failed to stat skills entry ~/.codex/skills/ai-daily-digest (symlink): No such file o"
     },
     {
       "id": "2026-04-13-better-harness-a-recipe-for-harness--743431e4",
@@ -3607,7 +3607,7 @@
       "mergeCommit": "",
       "featurePathsCount": null,
       "skipType": "",
-      "summary": "来源 - 来源正文摘录（抓取） 抓取来源正文失败：fetch failed 分支 测试命令 失败输出（摘录） ``` 2026-04-13T16:51:30.207034Z ERROR codex core skills::loader: failed to stat skills entry /Users/penglei/.codex/skills/brainstorming (symlink): No such file or directory (os error 2) 2026-04-13T16:51:30.207092Z ERROR codex core skills::loader: failed to stat skills entry /Users/penglei/.codex/skills/ai-daily-digest (symlink): No such file o"
+      "summary": "来源 - 来源正文摘录（抓取） 抓取来源正文失败：fetch failed 分支 测试命令 失败输出（摘录） ``` 2026-04-13T16:51:30.207034Z ERROR codex core skills::loader: failed to stat skills entry ~/.codex/skills/brainstorming (symlink): No such file or directory (os error 2) 2026-04-13T16:51:30.207092Z ERROR codex core skills::loader: failed to stat skills entry ~/.codex/skills/ai-daily-digest (symlink): No such file o"
     },
     {
       "id": "2026-04-13-training-mrna-language-models-across-66637736",
@@ -3623,7 +3623,7 @@
       "mergeCommit": "",
       "featurePathsCount": null,
       "skipType": "",
-      "summary": "来源 - 来源正文摘录（抓取） 抓取来源正文失败：fetch failed 分支 测试命令 失败输出（摘录） ``` 2026-04-13T16:51:30.105979Z ERROR codex core skills::loader: failed to stat skills entry /Users/penglei/.codex/skills/brainstorming (symlink): No such file or directory (os error 2) 2026-04-13T16:51:30.106039Z ERROR codex core skills::loader: failed to stat skills entry /Users/penglei/.codex/skills/ai-daily-digest (symlink): No such file o"
+      "summary": "来源 - 来源正文摘录（抓取） 抓取来源正文失败：fetch failed 分支 测试命令 失败输出（摘录） ``` 2026-04-13T16:51:30.105979Z ERROR codex core skills::loader: failed to stat skills entry ~/.codex/skills/brainstorming (symlink): No such file or directory (os error 2) 2026-04-13T16:51:30.106039Z ERROR codex core skills::loader: failed to stat skills entry ~/.codex/skills/ai-daily-digest (symlink): No such file o"
     },
     {
       "id": "2026-04-13-welcome-gemma-4-frontier-multimodal--a8b64689",
@@ -3639,7 +3639,7 @@
       "mergeCommit": "",
       "featurePathsCount": null,
       "skipType": "",
-      "summary": "来源 - 来源正文摘录（抓取） 抓取来源正文失败：fetch failed 分支 测试命令 失败输出（摘录） ``` 2026-04-13T16:49:18.426821Z ERROR codex core skills::loader: failed to stat skills entry /Users/penglei/.codex/skills/brainstorming (symlink): No such file or directory (os error 2) 2026-04-13T16:49:18.426880Z ERROR codex core skills::loader: failed to stat skills entry /Users/penglei/.codex/skills/ai-daily-digest (symlink): No such file o"
+      "summary": "来源 - 来源正文摘录（抓取） 抓取来源正文失败：fetch failed 分支 测试命令 失败输出（摘录） ``` 2026-04-13T16:49:18.426821Z ERROR codex core skills::loader: failed to stat skills entry ~/.codex/skills/brainstorming (symlink): No such file or directory (os error 2) 2026-04-13T16:49:18.426880Z ERROR codex core skills::loader: failed to stat skills entry ~/.codex/skills/ai-daily-digest (symlink): No such file o"
     },
     {
       "id": "2026-04-13-any-custom-frontend-with-gradio-apos-a2de528f",
@@ -3655,7 +3655,7 @@
       "mergeCommit": "",
       "featurePathsCount": null,
       "skipType": "",
-      "summary": "来源 - 来源正文摘录（抓取） 抓取来源正文失败：fetch failed 分支 测试命令 失败输出（摘录） ``` 2026-04-13T16:51:04.560799Z ERROR codex core skills::loader: failed to stat skills entry /Users/penglei/.codex/skills/brainstorming (symlink): No such file or directory (os error 2) 2026-04-13T16:51:04.560856Z ERROR codex core skills::loader: failed to stat skills entry /Users/penglei/.codex/skills/ai-daily-digest (symlink): No such file o"
+      "summary": "来源 - 来源正文摘录（抓取） 抓取来源正文失败：fetch failed 分支 测试命令 失败输出（摘录） ``` 2026-04-13T16:51:04.560799Z ERROR codex core skills::loader: failed to stat skills entry ~/.codex/skills/brainstorming (symlink): No such file or directory (os error 2) 2026-04-13T16:51:04.560856Z ERROR codex core skills::loader: failed to stat skills entry ~/.codex/skills/ai-daily-digest (symlink): No such file o"
     },
     {
       "id": "2026-04-13-granite-4-0-3b-vision-compact-multim-925612dc",
@@ -3671,7 +3671,7 @@
       "mergeCommit": "",
       "featurePathsCount": null,
       "skipType": "",
-      "summary": "来源 - 来源正文摘录（抓取） 抓取来源正文失败：fetch failed 分支 测试命令 失败输出（摘录） ``` 2026-04-13T16:50:36.224497Z ERROR codex core skills::loader: failed to stat skills entry /Users/penglei/.codex/skills/brainstorming (symlink): No such file or directory (os error 2) 2026-04-13T16:50:36.224559Z ERROR codex core skills::loader: failed to stat skills entry /Users/penglei/.codex/skills/ai-daily-digest (symlink): No such file o"
+      "summary": "来源 - 来源正文摘录（抓取） 抓取来源正文失败：fetch failed 分支 测试命令 失败输出（摘录） ``` 2026-04-13T16:50:36.224497Z ERROR codex core skills::loader: failed to stat skills entry ~/.codex/skills/brainstorming (symlink): No such file or directory (os error 2) 2026-04-13T16:50:36.224559Z ERROR codex core skills::loader: failed to stat skills entry ~/.codex/skills/ai-daily-digest (symlink): No such file o"
     },
     {
       "id": "2026-04-13-altk-evolve-on-the-job-learning-for--167f9df4",
@@ -3703,7 +3703,7 @@
       "mergeCommit": "",
       "featurePathsCount": null,
       "skipType": "",
-      "summary": "来源 - 来源正文摘录（抓取） 抓取来源正文失败：fetch failed 分支 测试命令 失败输出（摘录） ``` 2026-04-13T16:49:02.150576Z ERROR codex core skills::loader: failed to stat skills entry /Users/penglei/.codex/skills/brainstorming (symlink): No such file or directory (os error 2) 2026-04-13T16:49:02.150637Z ERROR codex core skills::loader: failed to stat skills entry /Users/penglei/.codex/skills/ai-daily-digest (symlink): No such file o"
+      "summary": "来源 - 来源正文摘录（抓取） 抓取来源正文失败：fetch failed 分支 测试命令 失败输出（摘录） ``` 2026-04-13T16:49:02.150576Z ERROR codex core skills::loader: failed to stat skills entry ~/.codex/skills/brainstorming (symlink): No such file or directory (os error 2) 2026-04-13T16:49:02.150637Z ERROR codex core skills::loader: failed to stat skills entry ~/.codex/skills/ai-daily-digest (symlink): No such file o"
     },
     {
       "id": "2026-04-13-holo3-breaking-the-computer-use-fron-34633a91",
@@ -3719,7 +3719,7 @@
       "mergeCommit": "",
       "featurePathsCount": null,
       "skipType": "",
-      "summary": "来源 - 来源正文摘录（抓取） 抓取来源正文失败：fetch failed 分支 测试命令 失败输出（摘录） ``` 2026-04-13T16:47:49.708447Z ERROR codex core skills::loader: failed to stat skills entry /Users/penglei/.codex/skills/brainstorming (symlink): No such file or directory (os error 2) 2026-04-13T16:47:49.708554Z ERROR codex core skills::loader: failed to stat skills entry /Users/penglei/.codex/skills/ai-daily-digest (symlink): No such file o"
+      "summary": "来源 - 来源正文摘录（抓取） 抓取来源正文失败：fetch failed 分支 测试命令 失败输出（摘录） ``` 2026-04-13T16:47:49.708447Z ERROR codex core skills::loader: failed to stat skills entry ~/.codex/skills/brainstorming (symlink): No such file or directory (os error 2) 2026-04-13T16:47:49.708554Z ERROR codex core skills::loader: failed to stat skills entry ~/.codex/skills/ai-daily-digest (symlink): No such file o"
     },
     {
       "id": "2026-04-13-safetensors-is-joining-the-pytorch-f-b92bfd06",
@@ -3991,7 +3991,7 @@
       "mergeCommit": "",
       "featurePathsCount": null,
       "skipType": "",
-      "summary": "来源 - 来源正文摘录（抓取） 抓取来源正文失败：fetch failed 分支 测试命令 失败输出（摘录） ``` 2026-04-02T17:36:49.068788Z ERROR codex core skills::loader: failed to stat skills entry /Users/penglei/.codex/skills/brainstorming (symlink): No such file or directory (os error 2) 2026-04-02T17:36:49.068897Z ERROR codex core skills::loader: failed to stat skills entry /Users/penglei/.codex/skills/ai-daily-digest (symlink): No such file o"
+      "summary": "来源 - 来源正文摘录（抓取） 抓取来源正文失败：fetch failed 分支 测试命令 失败输出（摘录） ``` 2026-04-02T17:36:49.068788Z ERROR codex core skills::loader: failed to stat skills entry ~/.codex/skills/brainstorming (symlink): No such file or directory (os error 2) 2026-04-02T17:36:49.068897Z ERROR codex core skills::loader: failed to stat skills entry ~/.codex/skills/ai-daily-digest (symlink): No such file o"
     },
     {
       "id": "2026-04-02-google-banned-our-mobile-ai-agent-ap-219bbba3",
@@ -4007,7 +4007,7 @@
       "mergeCommit": "",
       "featurePathsCount": null,
       "skipType": "",
-      "summary": "来源 - 来源正文摘录（抓取） 抓取来源正文失败：fetch failed 分支 测试命令 失败输出（摘录） ``` 2026-04-02T17:28:24.998623Z ERROR codex core skills::loader: failed to stat skills entry /Users/penglei/.codex/skills/brainstorming (symlink): No such file or directory (os error 2) 2026-04-02T17:28:24.998725Z ERROR codex core skills::loader: failed to stat skills entry /Users/penglei/.codex/skills/ai-daily-digest (symlink): No such file o"
+      "summary": "来源 - 来源正文摘录（抓取） 抓取来源正文失败：fetch failed 分支 测试命令 失败输出（摘录） ``` 2026-04-02T17:28:24.998623Z ERROR codex core skills::loader: failed to stat skills entry ~/.codex/skills/brainstorming (symlink): No such file or directory (os error 2) 2026-04-02T17:28:24.998725Z ERROR codex core skills::loader: failed to stat skills entry ~/.codex/skills/ai-daily-digest (symlink): No such file o"
     },
     {
       "id": "2026-04-02-the-miracle-of-ai-agent-assisted-lea-1bdbe041",
@@ -4375,7 +4375,7 @@
       "mergeCommit": "",
       "featurePathsCount": null,
       "skipType": "",
-      "summary": "来源 - 来源正文摘录（抓取） 抓取来源正文失败：fetch failed 分支 测试命令 失败输出（摘录） ``` 2026-04-02T04:04:18.810688Z ERROR codex core skills::loader: failed to stat skills entry /Users/penglei/.codex/skills/brainstorming (symlink): No such file or directory (os error 2) 2026-04-02T04:04:18.810752Z ERROR codex core skills::loader: failed to stat skills entry /Users/penglei/.codex/skills/ai-daily-digest (symlink): No such file o"
+      "summary": "来源 - 来源正文摘录（抓取） 抓取来源正文失败：fetch failed 分支 测试命令 失败输出（摘录） ``` 2026-04-02T04:04:18.810688Z ERROR codex core skills::loader: failed to stat skills entry ~/.codex/skills/brainstorming (symlink): No such file or directory (os error 2) 2026-04-02T04:04:18.810752Z ERROR codex core skills::loader: failed to stat skills entry ~/.codex/skills/ai-daily-digest (symlink): No such file o"
     },
     {
       "id": "2026-04-02-march-2026-langchain-newsletter-540b89fb",
