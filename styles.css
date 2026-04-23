@@ -89,7 +89,6 @@ body {
 
 .site-header {
   padding: 2rem 0 1.25rem;
-  border-bottom: 1px solid var(--border);
 }
 
 .brand {
@@ -149,72 +148,8 @@ main.container {
 
 .controls-panel {
   background: var(--bg-elevated);
-  border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 0.85rem 1rem;
-}
-
-.controls-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-@media (min-width: 640px) {
-  .controls-grid {
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: flex-end;
-  }
-}
-
-.filter-fieldset {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  flex: 1 1 220px;
-}
-
-.filter-fieldset legend {
-  font-size: 0.72rem;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--text-muted);
-  margin-bottom: 0.45rem;
-}
-
-.chip-group {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-}
-
-.filter-btn {
-  font-family: inherit;
-  font-size: 0.78rem;
-  cursor: pointer;
-  padding: 0.35rem 0.55rem;
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
-  background: var(--bg-card);
-  color: var(--text-muted);
-  transition: border-color 160ms ease, color 160ms ease;
-}
-
-.filter-btn:hover {
-  border-color: var(--accent);
-  color: var(--text);
-}
-
-.filter-btn:focus-visible {
-  outline: 2px solid var(--border-focus);
-  outline-offset: 2px;
-}
-
-.filter-btn[aria-pressed='true'] {
-  border-color: var(--accent);
-  color: var(--accent);
-  font-weight: 600;
 }
 
 .search-wrap {
@@ -223,8 +158,23 @@ main.container {
   gap: 0.35rem;
 }
 
-.search-wrap--grow {
-  width: 100%;
+.grouped-root {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.outcome-group {
+  margin: 0;
+}
+
+.outcome-group-title {
+  margin: 0 0 0.75rem;
+  padding-bottom: 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--accent);
 }
 
 .search-wrap label {
@@ -239,7 +189,7 @@ main.container {
   font-size: 0.88rem;
   padding: 0.5rem 0.65rem;
   border-radius: var(--radius);
-  border: 1px solid var(--border);
+  border: 0;
   background: var(--bg);
   color: var(--text);
   width: 100%;
@@ -265,13 +215,44 @@ main.container {
   gap: 1rem;
 }
 
+.day-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0.35rem 0 0.15rem;
+  padding: 0;
+  list-style: none;
+}
+
+.day-divider time {
+  flex-shrink: 0;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.day-divider::before,
+.day-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(139, 156, 173, 0.45) 12%,
+    rgba(139, 156, 173, 0.45) 88%,
+    transparent
+  );
+}
+
 .record-item {
   margin: 0;
 }
 
 .record-article {
   background: var(--bg-card);
-  border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 1rem 1.1rem;
 }
@@ -284,28 +265,13 @@ main.container {
   margin-bottom: 0.65rem;
 }
 
-.outcome-badge {
-  flex-shrink: 0;
-  font-size: 0.68rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  padding: 0.2rem 0.45rem;
-  border-radius: 4px;
-  border: 1px solid var(--border);
-  color: var(--accent);
-  background: rgba(0, 229, 197, 0.08);
-  max-width: 100%;
-  word-break: break-word;
-}
-
 .skip-tag {
   flex-shrink: 0;
   font-size: 0.65rem;
   color: var(--text-muted);
   padding: 0.15rem 0.4rem;
-  border: 1px dashed var(--border);
   border-radius: 4px;
+  background: rgba(139, 156, 173, 0.12);
   max-width: 100%;
   word-break: break-word;
 }
@@ -344,6 +310,38 @@ main.container {
   border-radius: 2px;
 }
 
+.record-commit {
+  margin: 0 0 0.75rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  word-break: break-all;
+}
+
+.record-commit a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-weight: 600;
+}
+
+.record-commit a:hover {
+  color: var(--text);
+}
+
+.record-commit a:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.record-commit .commit-sha {
+  font-size: 0.85em;
+  color: var(--text);
+  background: rgba(139, 156, 173, 0.12);
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+}
+
 .record-reasons {
   margin-bottom: 0.85rem;
 }
@@ -374,9 +372,8 @@ main.container {
 }
 
 .record-deposit {
-  border-top: 1px solid var(--border);
   padding-top: 0.75rem;
-  margin-top: 0.25rem;
+  margin-top: 0.5rem;
 }
 
 .deposit-label {
@@ -403,7 +400,6 @@ main.container {
 }
 
 .site-footer {
-  border-top: 1px solid var(--border);
   padding: 1.25rem 0;
   margin-top: 1.5rem;
 }
