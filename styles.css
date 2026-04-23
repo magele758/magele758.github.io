@@ -152,73 +152,47 @@ main.container {
   padding: 0.85rem 1rem;
 }
 
-.filter-fieldset {
-  margin: 0 0 1rem;
-  padding: 0;
-  border: 0;
+.filter-select-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 0.85rem;
 }
 
-.filter-legend {
+.filter-select-label {
   font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--text-muted);
-  margin-bottom: 0.45rem;
 }
 
-.filter-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem 0.65rem;
-  align-items: center;
-}
-
-.filter-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  cursor: pointer;
-  user-select: none;
-}
-
-.filter-chip input {
-  width: 1rem;
-  height: 1rem;
-  accent-color: var(--accent);
-  cursor: pointer;
-}
-
-.filter-chip input:focus-visible {
-  outline: 2px solid var(--border-focus);
-  outline-offset: 2px;
-}
-
-.filter-actions {
-  display: flex;
-  gap: 0.5rem;
-  margin-top: 0.55rem;
-}
-
-.filter-action-btn {
+.filter-select {
   font-family: inherit;
-  font-size: 0.72rem;
-  cursor: pointer;
-  padding: 0.25rem 0.5rem;
+  font-size: 0.88rem;
+  line-height: 1.35;
+  padding: 0.5rem 2.25rem 0.5rem 0.65rem;
   border-radius: var(--radius);
   border: 0;
-  background: var(--bg-card);
-  color: var(--text-muted);
+  background-color: var(--bg);
+  color: var(--text);
+  width: 100%;
+  max-width: 100%;
+  cursor: pointer;
+  color-scheme: dark;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%2300e5c5' d='M1 1.5L6 6.5L11 1.5'/%3E%3C/svg%3E");
+  background-position: right 0.75rem center;
+  background-size: 12px 8px;
+  background-repeat: no-repeat;
 }
 
-.filter-action-btn:hover {
-  color: var(--accent);
-}
-
-.filter-action-btn:focus-visible {
+.filter-select:focus-visible {
   outline: 2px solid var(--border-focus);
   outline-offset: 2px;
+}
+
+.filter-select:hover {
+  background-color: #0d1218;
 }
 
 .search-wrap {

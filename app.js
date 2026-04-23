@@ -51,54 +51,11 @@
   }
 
   function getSelectedOutcomes() {
-    const host = document.getElementById('outcomeFilters');
-    if (!host) return new Set([...OUTCOME_ORDER, '_other']);
-    const s = new Set();
-    for (const cb of host.querySelectorAll('input[type="checkbox"]')) {
-      if (cb.checked && cb.dataset.outcome) s.add(cb.dataset.outcome);
+    const sel = document.getElementById('outcomeFilter');
+    if (!sel || sel.value === 'all' || sel.value === '') {
+      return new Set([...OUTCOME_ORDER, '_other']);
     }
-    return s;
-  }
-
-  function wireOutcomeFilters() {
-    const host = document.getElementById('outcomeFilters');
-    const allBtn = document.getElementById('filterAll');
-    const noneBtn = document.getElementById('filterNone');
-    if (!host) return;
-    host.innerHTML = '';
-    for (const key of [...OUTCOME_ORDER, '_other']) {
-      const safeId = `filter-${key.replace(/[^a-z0-9]/gi, '-')}`;
-      const lab = document.createElement('label');
-      lab.className = 'filter-chip';
-      lab.htmlFor = safeId;
-      const cb = document.createElement('input');
-      cb.type = 'checkbox';
-      cb.id = safeId;
-      cb.dataset.outcome = key;
-      cb.checked = true;
-      cb.addEventListener('change', () => renderList());
-      const span = document.createElement('span');
-      span.textContent = OUTCOME_LABELS[key] || key;
-      lab.appendChild(cb);
-      lab.appendChild(span);
-      host.appendChild(lab);
-    }
-    if (allBtn) {
-      allBtn.onclick = () => {
-        host.querySelectorAll('input[type="checkbox"]').forEach((c) => {
-          c.checked = true;
-        });
-        renderList();
-      };
-    }
-    if (noneBtn) {
-      noneBtn.onclick = () => {
-        host.querySelectorAll('input[type="checkbox"]').forEach((c) => {
-          c.checked = false;
-        });
-        renderList();
-      };
-    }
+    return new Set([sel.value]);
   }
 
   /** @type {{ q: HTMLInputElement | null, groupedRecords: HTMLElement | null, listCount: HTMLElement | null, loadError: HTMLElement | null }} */
@@ -270,11 +227,6 @@
   function renderList() {
     if (!els.groupedRecords || !els.listCount) return;
     const selected = getSelectedOutcomes();
-    if (selected.size === 0) {
-      els.groupedRecords.innerHTML = '';
-      els.listCount.textContent = '请至少勾选一种结果类型';
-      return;
-    }
 
     const items = getFilteredItems();
     const groups = groupByOutcome(items);
@@ -349,7 +301,8 @@
       const data = await res.json();
       rawItems = Array.isArray(data.items) ? data.items : [];
 
-      wireOutcomeFilters();
+      const outcomeFilter = document.getElementById('outcomeFilter');
+      if (outcomeFilter) outcomeFilter.addEventListener('change', () => renderList());
       if (els.q) els.q.oninput = () => renderList();
       renderList();
       if (els.loadError) els.loadError.hidden = true;
