@@ -1,4 +1,4 @@
-/* 设计 tokens：极客终端风 + ui-ux-pro-max 可访问性（对比度、focus、reduced-motion） */
+/* 极客终端风 + 可访问性：对比度、focus、reduced-motion */
 :root {
   --bg: #0a0e14;
   --bg-elevated: #111820;
@@ -8,14 +8,9 @@
   --text: #e6edf3;
   --text-muted: #8b9cad;
   --accent: #00e5c5;
-  --accent-subtle: rgba(0, 229, 197, 0.12);
-  --warn: #f0b429;
   --danger: #f87171;
-  --ok: #34d399;
-  --info: #60a5fa;
   --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Code", "SF Mono", monospace;
   --radius: 6px;
-  --shadow: 0 0 0 1px rgba(0, 229, 197, 0.08);
   --transition-fast: 160ms ease;
 }
 
@@ -87,25 +82,21 @@ body {
   position: relative;
   z-index: 1;
   width: 100%;
-  max-width: 1100px;
+  max-width: 720px;
   margin: 0 auto;
   padding: 0 1.25rem;
 }
 
 .site-header {
-  padding: 2.5rem 0 1.5rem;
+  padding: 2rem 0 1.25rem;
   border-bottom: 1px solid var(--border);
-}
-
-.header-inner {
-  max-width: 1100px;
 }
 
 .brand {
   display: flex;
   align-items: baseline;
   gap: 0.35rem;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.65rem;
 }
 
 .brand-prompt {
@@ -116,7 +107,7 @@ body {
 
 .brand-title {
   margin: 0;
-  font-size: 1.75rem;
+  font-size: 1.65rem;
   font-weight: 700;
   letter-spacing: -0.02em;
   color: var(--text);
@@ -143,144 +134,48 @@ body {
 .tagline {
   margin: 0;
   color: var(--text-muted);
-  font-size: 0.95rem;
-  max-width: 52ch;
-}
-
-.meta-build {
-  margin: 1rem 0 0;
-  font-size: 0.8rem;
-  color: var(--text-muted);
+  font-size: 0.9rem;
+  max-width: 48ch;
 }
 
 main.container {
-  padding-top: 1.5rem;
-  padding-bottom: 3rem;
+  padding-top: 1.25rem;
+  padding-bottom: 2.5rem;
 }
 
 .panel {
-  margin-bottom: 1.25rem;
-}
-
-.stats-strip {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem;
-}
-
-.stat-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.45rem 0.75rem;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  font-size: 0.82rem;
-}
-
-.stat-chip .label {
-  color: var(--text-muted);
-  text-transform: uppercase;
-  font-size: 0.72rem;
-  letter-spacing: 0.06em;
-}
-
-.stat-chip .value {
-  font-weight: 700;
-  color: var(--accent);
+  margin-bottom: 1rem;
 }
 
 .controls-panel {
   background: var(--bg-elevated);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 1rem 1.1rem;
+  padding: 0.85rem 1rem;
 }
 
-.controls-row {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+.controls-row--simple {
+  display: block;
 }
 
-@media (min-width: 768px) {
-  .controls-row {
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: flex-end;
-  }
-}
-
-.filter-fieldset {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  min-width: 0;
-  flex: 1 1 280px;
-}
-
-.filter-fieldset legend {
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--text-muted);
-  margin-bottom: 0.5rem;
-}
-
-.chip-group {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.45rem;
-}
-
-.filter-btn {
-  font-family: inherit;
-  font-size: 0.8rem;
-  cursor: pointer;
-  padding: 0.4rem 0.65rem;
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
-  background: var(--bg-card);
-  color: var(--text-muted);
-  transition: border-color var(--transition-fast), color var(--transition-fast), background var(--transition-fast);
-}
-
-.filter-btn:hover {
-  border-color: var(--accent);
-  color: var(--text);
-}
-
-.filter-btn:focus-visible {
-  outline: 2px solid var(--border-focus);
-  outline-offset: 2px;
-}
-
-.filter-btn[aria-pressed="true"] {
-  background: var(--accent-subtle);
-  border-color: var(--accent);
-  color: var(--accent);
-  font-weight: 600;
-}
-
-.search-wrap,
-.sort-wrap {
+.search-wrap {
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
-  flex: 0 1 auto;
 }
 
-.search-wrap label,
-.sort-wrap label {
-  font-size: 0.75rem;
+.search-wrap--grow {
+  width: 100%;
+}
+
+.search-wrap label {
+  font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--text-muted);
 }
 
-#q,
-#sort {
+#q {
   font-family: inherit;
   font-size: 0.88rem;
   padding: 0.5rem 0.65rem;
@@ -288,19 +183,18 @@ main.container {
   border: 1px solid var(--border);
   background: var(--bg);
   color: var(--text);
-  min-width: 200px;
+  width: 100%;
 }
 
-#q:focus-visible,
-#sort:focus-visible {
+#q:focus-visible {
   outline: 2px solid var(--border-focus);
   outline-offset: 2px;
 }
 
 .list-count {
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   color: var(--text-muted);
-  margin: 0 0 0.75rem;
+  margin: 0 0 0.65rem;
 }
 
 .record-list {
@@ -309,139 +203,73 @@ main.container {
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 1rem;
 }
 
-.record-card {
+.record-item {
+  margin: 0;
+}
+
+.record-article {
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  overflow: hidden;
-}
-
-.record-card summary {
-  cursor: pointer;
-  list-style: none;
   padding: 1rem 1.1rem;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  gap: 0.5rem 1rem;
-}
-
-.record-card summary::-webkit-details-marker {
-  display: none;
-}
-
-.record-card summary:focus-visible {
-  outline: 2px solid var(--border-focus);
-  outline-offset: -2px;
-}
-
-.record-title-wrap {
-  flex: 1 1 220px;
-  min-width: 0;
 }
 
 .record-title {
-  margin: 0 0 0.25rem;
+  margin: 0 0 0.65rem;
   font-size: 1rem;
   font-weight: 600;
   color: var(--text);
   word-break: break-word;
+  line-height: 1.4;
 }
 
-.record-meta {
-  margin: 0;
-  font-size: 0.78rem;
+.record-source {
+  margin: 0 0 0.85rem;
+  font-size: 0.8rem;
   color: var(--text-muted);
+  word-break: break-all;
 }
 
-.badge {
-  display: inline-block;
-  font-size: 0.68rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  padding: 0.2rem 0.45rem;
-  border-radius: 4px;
-  border: 1px solid var(--border);
-  flex-shrink: 0;
-}
-
-.badge-success {
-  color: var(--ok);
-  border-color: rgba(52, 211, 153, 0.45);
-  background: rgba(52, 211, 153, 0.08);
-}
-
-.badge-failure {
-  color: var(--danger);
-  border-color: rgba(248, 113, 113, 0.45);
-  background: rgba(248, 113, 113, 0.08);
-}
-
-.badge-no-op,
-.badge-skip {
-  color: var(--text-muted);
-}
-
-.badge-superseded {
-  color: var(--warn);
-  border-color: rgba(240, 180, 41, 0.4);
-  background: rgba(240, 180, 41, 0.08);
-}
-
-.record-body {
-  padding: 0 1.1rem 1rem;
-  border-top: 1px solid var(--border);
-  background: rgba(0, 0, 0, 0.2);
-}
-
-.summary-text {
-  margin: 0.85rem 0;
-  font-size: 0.88rem;
-  color: var(--text-muted);
-  white-space: pre-wrap;
-  word-break: break-word;
-}
-
-.link-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.65rem 1rem;
-  margin-top: 0.75rem;
-}
-
-.link-row a {
+.record-source a {
   color: var(--accent);
   text-decoration: underline;
   text-underline-offset: 3px;
-  font-size: 0.82rem;
-  cursor: pointer;
 }
 
-.link-row a:hover {
+.record-source a:hover {
   color: var(--text);
 }
 
-.link-row a:focus-visible {
+.record-source a:focus-visible {
   outline: 2px solid var(--border-focus);
   outline-offset: 2px;
   border-radius: 2px;
 }
 
-.kv {
-  margin: 0.35rem 0;
-  font-size: 0.8rem;
-  color: var(--text-muted);
+.record-deposit {
+  border-top: 1px solid var(--border);
+  padding-top: 0.75rem;
 }
 
-.kv code {
-  font-size: 0.78rem;
-  color: var(--info);
-  word-break: break-all;
+.deposit-label {
+  display: block;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: 0.4rem;
+}
+
+.deposit-text {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  white-space: pre-wrap;
+  word-break: break-word;
+  line-height: 1.6;
 }
 
 .load-error {
@@ -451,19 +279,14 @@ main.container {
 
 .site-footer {
   border-top: 1px solid var(--border);
-  padding: 1.5rem 0;
-  margin-top: 2rem;
+  padding: 1.25rem 0;
+  margin-top: 1.5rem;
 }
 
 .footer-inner p {
   margin: 0;
-  font-size: 0.8rem;
-  color: var(--text-muted);
-}
-
-.footer-inner code {
   font-size: 0.78rem;
-  color: var(--accent);
+  color: var(--text-muted);
 }
 
 .sr-only {

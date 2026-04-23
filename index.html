@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Evolution · Agent 自我进化档案</title>
+    <title>Evolution · 学习源头与沉淀</title>
     <meta
       name="description"
-      content="从 RSS 与论文中筛选、研究、实现并合并到主仓的自动化进化记录。"
+      content="外部资料来源与 Agent 学习、沉淀要点（不含仓库提交信息）。"
     />
     <link
       rel="icon"
@@ -31,43 +31,23 @@
           <span class="brand-prompt" aria-hidden="true">$</span>
           <h1 class="brand-title">evolution<span class="brand-cursor" aria-hidden="true">_</span></h1>
         </div>
-        <p class="tagline">
-          Agent 从外部资料中学习并落地到代码库的实验流水与可追溯记录。
-        </p>
-        <p class="meta-build" id="buildMeta" hidden></p>
+        <p class="tagline">每条记录只展示：资料来源、学习与沉淀要点。不含分支、提交或仓库路径。</p>
       </div>
     </header>
 
     <main id="main" class="container">
-      <section class="panel stats-panel" aria-labelledby="stats-heading">
-        <h2 id="stats-heading" class="sr-only">统计</h2>
-        <div id="statsStrip" class="stats-strip"></div>
-      </section>
-
       <section class="panel controls-panel" aria-labelledby="controls-heading">
-        <h2 id="controls-heading" class="sr-only">筛选与排序</h2>
-        <div class="controls-row">
-          <fieldset class="filter-fieldset">
-            <legend>按状态筛选</legend>
-            <div id="statusFilters" class="chip-group" role="group" aria-label="状态"></div>
-          </fieldset>
-          <div class="search-wrap">
-            <label for="q">搜索标题</label>
+        <h2 id="controls-heading" class="sr-only">搜索</h2>
+        <div class="controls-row controls-row--simple">
+          <div class="search-wrap search-wrap--grow">
+            <label for="q">筛选标题</label>
             <input
               id="q"
               type="search"
               name="q"
               autocomplete="off"
-              placeholder="标题关键词…"
+              placeholder="输入关键词缩小列表…"
             />
-          </div>
-          <div class="sort-wrap">
-            <label for="sort">排序</label>
-            <select id="sort" name="sort">
-              <option value="date-desc">时间 · 新→旧</option>
-              <option value="date-asc">时间 · 旧→新</option>
-              <option value="status">状态</option>
-            </select>
           </div>
         </div>
       </section>
@@ -82,11 +62,7 @@
 
     <footer class="site-footer">
       <div class="container footer-inner">
-        <p>
-          数据由本地/CI 从
-          <code>doc/evolution</code>
-          生成；原始 Markdown 可能在独立 Agent 仓库中。
-        </p>
+        <p>静态页；数据由构建脚本从本地进化记录生成。</p>
       </div>
     </footer>
 
