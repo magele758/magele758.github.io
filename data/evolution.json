@@ -1,7 +1,22 @@
 {
-  "generatedAt": "2026-04-23T20:34:12.377Z",
+  "generatedAt": "2026-05-08T09:31:43.772Z",
   "sourceRepoWebBase": "https://github.com/magele758/ppeng-agent-core",
   "items": [
+    {
+      "id": "2026-05-08-behind-the-grok-exploitation-an-anal-ff69f788",
+      "outcome": "no-op",
+      "outcomeLabel": "未采纳",
+      "skipTag": "IRRELEVANT",
+      "title": "Behind the Grok exploitation: an analysis of AI agent permission chain abuse",
+      "sourceUrl": "https://slowmist.medium.com/behind-the-grok-exploitation-an-analysis-of-ai-agent-permission-chain-abuse-4d832d1bfc73",
+      "dateUtc": "2026-05-08T09:31:43.214Z",
+      "mergeCommit": null,
+      "commitUrl": null,
+      "reasonChosen": "",
+      "reasonSkipped": "决策：SKIP （与项目无关）",
+      "reasonFailed": "",
+      "summary": "决策：SKIP （与项目无关） source excerpt is empty or fetch failed; cannot evaluate safely."
+    },
     {
       "id": "2026-04-23-blacksky-appview-atproto-hacker-news-2bf849c3",
       "outcome": "no-op",
