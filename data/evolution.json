@@ -1,7 +1,22 @@
 {
-  "generatedAt": "2026-05-08T11:31:51.832Z",
+  "generatedAt": "2026-05-12T16:42:22.044Z",
   "sourceRepoWebBase": "https://github.com/magele758/ppeng-agent-core",
   "items": [
+    {
+      "id": "2026-05-12-show-hn-agent-harness-with-prolog-an-5462e714",
+      "outcome": "no-op",
+      "outcomeLabel": "未采纳",
+      "skipTag": "OUTDATED",
+      "title": "Show HN: Agent Harness with Prolog and WASM core incl. 90s Borland-style TUI",
+      "sourceUrl": "https://www.deepclause.ai/",
+      "dateUtc": "2026-05-12T16:42:21.547Z",
+      "mergeCommit": null,
+      "commitUrl": null,
+      "reasonChosen": "",
+      "reasonSkipped": "决策：SKIP （内容已过时）",
+      "reasonFailed": "",
+      "summary": "决策：SKIP （内容已过时） research command exited 1: Error: [aborted] Client network socket disconnected before secure TLS connection was established"
+    },
     {
       "id": "2026-05-08-inside-an-ai-run-company-21de303a",
       "outcome": "no-op",
