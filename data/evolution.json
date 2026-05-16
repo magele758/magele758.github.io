@@ -1,7 +1,52 @@
 {
-  "generatedAt": "2026-05-15T09:49:19.610Z",
+  "generatedAt": "2026-05-16T02:15:04.141Z",
   "sourceRepoWebBase": "https://github.com/magele758/ppeng-agent-core",
   "items": [
+    {
+      "id": "2026-05-16-building-a-general-purpose-accessibi-1097ba82",
+      "outcome": "no-op",
+      "outcomeLabel": "未采纳",
+      "skipTag": "IRRELEVANT",
+      "title": "Building a general-purpose accessibility agent—and what we learned in the process",
+      "sourceUrl": "https://github.blog/ai-and-ml/github-copilot/building-a-general-purpose-accessibility-agent-and-what-we-learned-in-the-process/",
+      "dateUtc": "2026-05-16T02:15:03.536Z",
+      "mergeCommit": null,
+      "commitUrl": null,
+      "reasonChosen": "",
+      "reasonSkipped": "决策：SKIP （与项目无关）",
+      "reasonFailed": "",
+      "summary": "决策：SKIP （与项目无关） TOOCOMPLEX 从文章抽出的可落地“钩子”（非口号） 双角色子智能体：被动 reviewer + 主动 implementer，彼此不直连，只通过固定模板/结构化输出由父 agent 校验与路由。 线性阶段：父级有序阶段 → 子级有序步骤 + 绑定资源/技能。 复杂度启发式（小脚本打分）超阈值则禁止改代码、转人工。 高风险模式清单（如拖拽、toast、富文本、树、数据网格）禁止自动生成实现。"
+    },
+    {
+      "id": "2026-05-16-ai-hr-hr-ai-hr-f953f86b",
+      "outcome": "no-op",
+      "outcomeLabel": "未采纳",
+      "skipTag": "IRRELEVANT",
+      "title": "探讨AI如何重塑HR行业，以及HR托管服务能否成为推动AI在HR领域应用的加速器",
+      "sourceUrl": "https://nitter.net/andyjankowski/status/1901313806510252349#m",
+      "dateUtc": "2026-05-16T02:13:48.122Z",
+      "mergeCommit": null,
+      "commitUrl": null,
+      "reasonChosen": "",
+      "reasonSkipped": "决策：SKIP （与项目无关）",
+      "reasonFailed": "",
+      "summary": "决策：SKIP （与项目无关） 标题与 URL 指向的是 HR 行业叙事/托管服务商业讨论（社交媒体片段），且正文抓取失败；与多 Agent 运行时、网关、MCP、自愈等技术能力无可对齐的具体 API、算法或运维钩子，无法形成有边界的代码改动。"
+    },
+    {
+      "id": "2026-05-16-canary-hbar-etf-080b1b1d",
+      "outcome": "no-op",
+      "outcomeLabel": "未采纳",
+      "skipTag": "IRRELEVANT",
+      "title": "Canary机构向纳斯达克提交现货HBAR ETF申请",
+      "sourceUrl": "https://nitter.net/WhaleInsider/status/1893992057170997649#m",
+      "dateUtc": "2026-05-16T02:13:44.638Z",
+      "mergeCommit": null,
+      "commitUrl": null,
+      "reasonChosen": "",
+      "reasonSkipped": "决策：SKIP （与项目无关）",
+      "reasonFailed": "",
+      "summary": "决策：SKIP （与项目无关） — 标题/URL 指向加密货币现货 ETF 新闻（Nitter 推文），与 TypeScript 多智能体运行时、网关、控制台或自愈子系统无技术交集；抓取失败且无正文，不存在可落地的 bounded patch。"
+    },
     {
       "id": "2026-05-15-hcm-ceo-cfo-chro-5161b64b",
       "outcome": "no-op",
