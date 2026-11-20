@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hyper VibeKanban — 本机多 Coding Agent 并行看板、Worktree 工厂与手机远程控制中心</title>
+  <meta name="description" content="把每张需求卡片自动映射为独立 Git Worktree，在本机看板并行编排多个 Coding Agent，并通过端到端受控手机控制中心随时审批、审阅 Diff 与一键收口。" />
+  <style>
+  :root {
+    --bg: #0b1020;
+    --bg-card: #121a30;
+    --bg-elevated: #182341;
+    --text: #f1f5f9;
+    --text-muted: #94a3b8;
+    --accent: #6366f1;
+    --accent-hover: #818cf8;
+    --accent-emerald: #10b981;
+    --border: rgba(148, 163, 184, 0.18);
+    --radius: 14px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", sans-serif;
+    background: radial-gradient(circle at 20% 0%, #172042 0%, var(--bg) 55%);
+    color: var(--text);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: #a5b4fc; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+  .topbar {
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: rgba(11, 16, 32, 0.85);
+  }
+  .topbar-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    gap: 16px;
+  }
+  .brand { font-weight: 700; font-size: 1.05rem; color: var(--text); letter-spacing: -0.01em; }
+  .nav-links { display: flex; gap: 18px; font-size: 0.92rem; }
+  .pill-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    background: rgba(99, 102, 241, 0.16);
+    color: #c7d2fe;
+    border: 1px solid rgba(99, 102, 241, 0.35);
+  }
+  .pill-emerald {
+    background: rgba(16, 185, 129, 0.15);
+    color: #6ee7b7;
+    border-color: rgba(16, 185, 129, 0.35);
+  }
+  .hero { padding: 72px 0 56px; }
+  .pain-box {
+    background: rgba(244, 63, 94, 0.09);
+    border-left: 3px solid #fb7185;
+    padding: 10px 16px;
+    border-radius: 0 8px 8px 0;
+    color: #fda4af;
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+    max-width: 820px;
+  }
+  h1 {
+    font-size: clamp(2rem, 4.2vw, 3.1rem);
+    line-height: 1.18;
+    letter-spacing: -0.025em;
+    margin-bottom: 16px;
+    max-width: 880px;
+  }
+  .outcome {
+    font-size: 1.14rem;
+    color: #cbd5e1;
+    max-width: 820px;
+    margin-bottom: 28px;
+  }
+  .cta-group { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; margin-bottom: 16px; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 13px 24px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.98rem;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: transform 0.12s ease, background 0.15s ease;
+    text-decoration: none !important;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-primary { background: var(--accent); color: #ffffff; }
+  .btn-primary:hover { background: var(--accent-hover); }
+  .btn-secondary {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text);
+    border-color: var(--border);
+  }
+  .btn-secondary:hover { background: rgba(255, 255, 255, 0.1); }
+  .micro-goal { font-size: 0.86rem; color: var(--text-muted); }
+  section { padding: 52px 0; border-top: 1px solid var(--border); }
+  h2 { font-size: 1.75rem; margin-bottom: 10px; letter-spacing: -0.02em; }
+  .section-lead { color: var(--text-muted); margin-bottom: 28px; max-width: 720px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+  .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 22px; }
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 26px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .card-highlight {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.4), 0 16px 38px rgba(15, 23, 42, 0.55);
+    background: linear-gradient(180deg, #172243 0%, var(--bg-card) 100%);
+  }
+  .step-badge {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.78rem;
+    color: #818cf8;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .price-tag { font-size: 2.1rem; font-weight: 800; letter-spacing: -0.03em; }
+  .feature-list { list-style: none; display: flex; flex-direction: column; gap: 9px; margin: 10px 0 18px; flex: 1; }
+  .feature-list li::before { content: "✓ "; color: var(--accent-emerald); font-weight: 700; }
+  .perm-table { width: 100%; border-collapse: collapse; margin-top: 16px; font-size: 0.92rem; }
+  .perm-table th, .perm-table td {
+    text-align: left;
+    padding: 11px 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  .perm-table th { color: var(--text-muted); font-weight: 600; }
+  .waitlist-box {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px;
+    max-width: 680px;
+  }
+  .form-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 16px; }
+  .input {
+    flex: 1;
+    min-width: 220px;
+    padding: 12px 15px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: #0b1020;
+    color: var(--text);
+    font-size: 0.96rem;
+  }
+  .status-msg { margin-top: 12px; font-size: 0.9rem; min-height: 1.4em; color: #6ee7b7; }
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 36px 0 48px;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+  .footer-inner { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 18px; }
+  .footer-links { display: flex; flex-wrap: wrap; gap: 18px; }
+  code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 2px 6px;
+    border-radius: 5px;
+    font-size: 0.86em;
+  }
+</style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="../index.html">OPC Studio · Hyper VibeKanban</a>
+      <nav class="nav-links">
+        <a href="#workflow">3-Step Workflow</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#trust">Privacy Pledge</a>
+        <a href="#waitlist">Early Access</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero" style="border-top: none;">
+      <div class="pill-row">
+        <span class="pill">Self-Hosted + Mobile Pro</span>
+        <span class="pill pill-emerald">Open-Core · Self-Hostable</span>
+      </div>
+      <div class="pain-box">
+        <strong>Pain Point:</strong> 同时开五六个终端跑 Coding Agent 时分支互相污染、审批卡死无人知晓，离开电脑后更无法安全查看 Diff 与拍板合并。
+      </div>
+      <h1>Hyper VibeKanban — 本机多 Coding Agent 并行看板、Worktree 工厂与手机远程控制中心</h1>
+      <p class="outcome">把每张需求卡片自动映射为独立 Git Worktree，在本机看板并行编排多个 Coding Agent，并通过端到端受控手机控制中心随时审批、审阅 Diff 与一键收口。</p>
+      <div class="cta-group">
+        <a class="btn btn-primary js-utm-link" href="https://checkout.opc.example.com/hyper-vibekanban?tier=remote_pro">
+          开通 Remote Pro ($49/yr)
+        </a>
+        <a class="btn btn-secondary js-utm-link" href="https://github.com/opc-example/hyper-vibekanban">
+          GitHub / Docs
+        </a>
+        <a class="btn btn-secondary" href="#waitlist">
+          Join Release Waitlist
+        </a>
+      </div>
+      <p class="micro-goal">
+        Activation Milestone: <strong>创建首个隔离 Git Worktree 任务并并行调度 Coding Agent</strong>
+      </p>
+    </section>
+
+    <section id="workflow">
+      <h2>How It Works in 3 Steps</h2>
+      <p class="section-lead">Zero configuration bloat — go from install to your first verified result in under two minutes.</p>
+      <div class="grid-3">
+        
+      <article class="card">
+        <span class="step-badge">01 · Worktree Factory</span>
+        <h3>新建任务卡自动派生隔离 Git Worktree</h3>
+        <p style="color: var(--text-muted);">告别脏工作区与 stash 地狱，每个 Feature 拥有独立目录、分支与环境快照。</p>
+      </article>
+
+      <article class="card">
+        <span class="step-badge">02 · Parallel Agents</span>
+        <h3>并行派发多路 Coding Agent 并聚合阻塞信号</h3>
+        <p style="color: var(--text-muted);">同一看板实时观测各 Agent 进度、单测结果与待决提问，把注意力集中在高价值拍板上。</p>
+      </article>
+
+      <article class="card">
+        <span class="step-badge">03 · Mobile Command</span>
+        <h3>手机远程审阅 Diff、批准决策并干净合并</h3>
+        <p style="color: var(--text-muted);">离开工位时通过手机安全控制中心响应 Agent 提问，一键合并回主干并自动清理临时 Worktree。</p>
+      </article>
+      </div>
+      <div class="card" style="margin-top: 22px;">
+        <h3>Why Makers &amp; Power Users Switch to Hyper VibeKanban</h3>
+        <ul class="feature-list" style="margin-bottom: 0;">
+          <li>Git Worktree 自动化工厂：创建任务即生成隔离工作树与专属终端上下文，多 Agent 并行改代码零冲突</li>
+<li>多 Coding Agent 统一状态看板：实时追踪运行中、待人工拍板、跑测失败与待合并任务流</li>
+<li>手机远程控制中心（Remote Pro）：出门在外也能在手机端查看干净 Diff、回复关键决策并触发测试收口</li>
+<li>Self-Hosted 优先架构：源代码仓库与 Agent 进程 100% 跑在你自己的开发机上</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="pricing">
+      <h2>Transparent, Indie-Friendly Pricing</h2>
+      <p class="section-lead">Start free immediately. Paid Pro tiers verify offline using cryptographic <strong>Ed25519</strong> public-key signatures — no forced cloud account or recurring SaaS trap.</p>
+      <div class="grid-3">
+        
+      <article class="card ">
+        <div class="pill-row" style="margin-bottom: 4px;">
+          <span class="pill">Self-Hosted Free</span>
+          
+        </div>
+        <div class="price-tag">$0</div>
+        <ul class="feature-list">
+          <li>本机多 Coding Agent 并行看板与状态流转</li>
+<li>自动化 Git Worktree 创建、Diff 预览与清理工厂</li>
+<li>局域网/本机浏览器全功能访问</li>
+<li>Apache-2.0 开源核心，支持任意 CLI Coding Agent</li>
+        </ul>
+        <a class="btn btn-secondary js-utm-link" href="https://github.com/opc-example/hyper-vibekanban">
+          免费自托管部署
+        </a>
+      </article>
+
+      <article class="card card-highlight">
+        <div class="pill-row" style="margin-bottom: 4px;">
+          <span class="pill">Remote Pro</span>
+          <span class="pill pill-emerald">Ed25519 Offline Key</span>
+        </div>
+        <div class="price-tag">$49 / yr</div>
+        <ul class="feature-list">
+          <li>手机端低延迟远程控制中心与移动端专属 Diff 审阅视图</li>
+<li>Agent 阻塞提问/单测告警实时推送与一键远程拍板</li>
+<li>多开发机工作区聚合视图与跨仓库编排模板</li>
+<li>端到端加密通道 + Ed25519 授权验签，核心代码永不托管至第三方云</li>
+        </ul>
+        <a class="btn btn-primary js-utm-link" href="https://checkout.opc.example.com/hyper-vibekanban?tier=remote_pro">
+          开通 Remote Pro ($49/yr)
+        </a>
+      </article>
+      </div>
+    </section>
+
+    <section id="trust">
+      <h2>Privacy &amp; Local-First Trust Pledge</h2>
+      <div class="card">
+        <h3>代码仓库永远留在你的开发机 · 远程控制仅传加密状态与受控指令</h3>
+        <ul class="feature-list" style="margin-bottom: 0;">
+          <li>Self-Hosted 核心无外部依赖，本机离线即可完整运行 Worktree 工厂与多 Agent 看板。</li>
+<li>手机远程通道最小化暴露面，不在中继层落盘源码仓库或私密环境变量。</li>
+<li>Apache-2.0 开放核心配合清晰商业扩展边界，无 AGPL 传染性陷阱。</li>
+        </ul>
+        
+      </div>
+    </section>
+
+    <section id="waitlist">
+      <div class="waitlist-box">
+        <h2>Get Release Drops &amp; Workflow Templates</h2>
+        <p style="color: var(--text-muted); margin-top: 6px;">
+          Join the privacy-safe waitlist (emails are SHA-256 hashed with masked storage by default) to receive the Day-0 Quick-Start &amp; Day-3 Power Tips sequence.
+        </p>
+        <form id="waitlist-form" action="/api/v1/waitlist/join" method="POST">
+          <input type="hidden" name="product" value="hyper-vibekanban" />
+          <input type="hidden" name="channel" value="" />
+          <input type="hidden" name="campaign" value="" />
+          <div class="form-row">
+            <input class="input" type="email" name="email" placeholder="you@example.com" required aria-label="Email address" />
+            <input class="input" type="text" name="note" placeholder="Optional: your #1 use case" aria-label="Use case note" />
+            <button class="btn btn-primary" type="submit">Join Waitlist</button>
+          </div>
+          <div id="waitlist-status" class="status-msg" role="status" aria-live="polite"></div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div>
+        <strong>OPC Studio</strong> · Contact: <a href="mailto:support@example.com">support@example.com</a>
+      </div>
+      <div class="footer-links">
+        <a href="./privacy.html">Privacy Policy</a>
+        <a href="./terms.html">Terms of Service</a>
+        <a href="./refund.html">Refund Policy</a>
+        <a href="https://opc.example.com/hyper-vibekanban/changelog">Changelog</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      var cfg = {"product":"hyper-vibekanban","slug":"hyper-vibekanban","apiBase":"","defaultChannel":"","defaultCampaign":""};
+      var search = new URLSearchParams(window.location.search);
+      var src = search.get("utm_source") || search.get("ref") || cfg.defaultChannel || "";
+      var camp = search.get("utm_campaign") || cfg.defaultCampaign || "";
+      var med = search.get("utm_medium") || "";
+
+      if (src || camp) {
+        var links = document.querySelectorAll(".js-utm-link");
+        for (var i = 0; i < links.length; i++) {
+          try {
+            var u = new URL(links[i].href, window.location.origin);
+            if (src && !u.searchParams.get("utm_source")) u.searchParams.set("utm_source", src);
+            if (med && !u.searchParams.get("utm_medium")) u.searchParams.set("utm_medium", med);
+            if (camp && !u.searchParams.get("utm_campaign")) u.searchParams.set("utm_campaign", camp);
+            links[i].href = u.toString();
+          } catch (_) {}
+        }
+      }
+
+      var form = document.getElementById("waitlist-form");
+      var statusEl = document.getElementById("waitlist-status");
+      if (form && statusEl) {
+        form.addEventListener("submit", function(ev) {
+          ev.preventDefault();
+          var fd = new FormData(form);
+          var payload = {
+            email: String(fd.get("email") || ""),
+            product: cfg.product,
+            channel: src || String(fd.get("channel") || "direct"),
+            campaign: camp || String(fd.get("campaign") || ""),
+            note: String(fd.get("note") || "")
+          };
+          statusEl.textContent = "Submitting...";
+          fetch((cfg.apiBase || "") + "/api/v1/waitlist/join", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+          })
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+              if (data && data.ok) {
+                statusEl.textContent = "You are on the list (" + data.waitlist.emailMasked + ")! D0 Welcome & D3 Tips queued.";
+                form.reset();
+              } else {
+                statusEl.textContent = (data && data.error) ? String(data.error) : "Submission failed.";
+              }
+            })
+            .catch(function() {
+              statusEl.textContent = "Network unavailable in offline preview.";
+            });
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

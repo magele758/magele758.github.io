@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OPC Studio — Local-First &amp; Open-Core Product Matrix</title>
+  <style>
+  :root {
+    --bg: #0b1020;
+    --bg-card: #121a30;
+    --bg-elevated: #182341;
+    --text: #f1f5f9;
+    --text-muted: #94a3b8;
+    --accent: #6366f1;
+    --accent-hover: #818cf8;
+    --accent-emerald: #10b981;
+    --border: rgba(148, 163, 184, 0.18);
+    --radius: 14px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", sans-serif;
+    background: radial-gradient(circle at 20% 0%, #172042 0%, var(--bg) 55%);
+    color: var(--text);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: #a5b4fc; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+  .topbar {
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: rgba(11, 16, 32, 0.85);
+  }
+  .topbar-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    gap: 16px;
+  }
+  .brand { font-weight: 700; font-size: 1.05rem; color: var(--text); letter-spacing: -0.01em; }
+  .nav-links { display: flex; gap: 18px; font-size: 0.92rem; }
+  .pill-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    background: rgba(99, 102, 241, 0.16);
+    color: #c7d2fe;
+    border: 1px solid rgba(99, 102, 241, 0.35);
+  }
+  .pill-emerald {
+    background: rgba(16, 185, 129, 0.15);
+    color: #6ee7b7;
+    border-color: rgba(16, 185, 129, 0.35);
+  }
+  .hero { padding: 72px 0 56px; }
+  .pain-box {
+    background: rgba(244, 63, 94, 0.09);
+    border-left: 3px solid #fb7185;
+    padding: 10px 16px;
+    border-radius: 0 8px 8px 0;
+    color: #fda4af;
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+    max-width: 820px;
+  }
+  h1 {
+    font-size: clamp(2rem, 4.2vw, 3.1rem);
+    line-height: 1.18;
+    letter-spacing: -0.025em;
+    margin-bottom: 16px;
+    max-width: 880px;
+  }
+  .outcome {
+    font-size: 1.14rem;
+    color: #cbd5e1;
+    max-width: 820px;
+    margin-bottom: 28px;
+  }
+  .cta-group { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; margin-bottom: 16px; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 13px 24px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.98rem;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: transform 0.12s ease, background 0.15s ease;
+    text-decoration: none !important;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-primary { background: var(--accent); color: #ffffff; }
+  .btn-primary:hover { background: var(--accent-hover); }
+  .btn-secondary {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text);
+    border-color: var(--border);
+  }
+  .btn-secondary:hover { background: rgba(255, 255, 255, 0.1); }
+  .micro-goal { font-size: 0.86rem; color: var(--text-muted); }
+  section { padding: 52px 0; border-top: 1px solid var(--border); }
+  h2 { font-size: 1.75rem; margin-bottom: 10px; letter-spacing: -0.02em; }
+  .section-lead { color: var(--text-muted); margin-bottom: 28px; max-width: 720px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+  .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 22px; }
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 26px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .card-highlight {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.4), 0 16px 38px rgba(15, 23, 42, 0.55);
+    background: linear-gradient(180deg, #172243 0%, var(--bg-card) 100%);
+  }
+  .step-badge {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.78rem;
+    color: #818cf8;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .price-tag { font-size: 2.1rem; font-weight: 800; letter-spacing: -0.03em; }
+  .feature-list { list-style: none; display: flex; flex-direction: column; gap: 9px; margin: 10px 0 18px; flex: 1; }
+  .feature-list li::before { content: "✓ "; color: var(--accent-emerald); font-weight: 700; }
+  .perm-table { width: 100%; border-collapse: collapse; margin-top: 16px; font-size: 0.92rem; }
+  .perm-table th, .perm-table td {
+    text-align: left;
+    padding: 11px 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  .perm-table th { color: var(--text-muted); font-weight: 600; }
+  .waitlist-box {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px;
+    max-width: 680px;
+  }
+  .form-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 16px; }
+  .input {
+    flex: 1;
+    min-width: 220px;
+    padding: 12px 15px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: #0b1020;
+    color: var(--text);
+    font-size: 0.96rem;
+  }
+  .status-msg { margin-top: 12px; font-size: 0.9rem; min-height: 1.4em; color: #6ee7b7; }
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 36px 0 48px;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+  .footer-inner { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 18px; }
+  .footer-links { display: flex; flex-wrap: wrap; gap: 18px; }
+  code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 2px 6px;
+    border-radius: 5px;
+    font-size: 0.86em;
+  }
+</style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <span class="brand">OPC Studio · Product Matrix</span>
+      <nav class="nav-links">
+        <a href="#products">Flagship Products</a>
+        <a href="#lead-magnets">Free Tools &amp; Funnel</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero" style="border-top: none;">
+      <div class="pill-row">
+        <span class="pill">One-Person Company (OPC) Suite</span>
+        <span class="pill pill-emerald">Local-First · BYOK · Ed25519 Offline Keys</span>
+      </div>
+      <h1>Focused Indie Software That Respects Your Keys, Files, and Attention</h1>
+      <p class="outcome">
+        Every tool in the OPC Studio portfolio runs local-first with transparent free tiers, cryptographic offline Pro licensing, and zero ad-tech surveillance.
+      </p>
+    </section>
+
+    <section id="products">
+      <h2>Flagship &amp; Open-Core Products (4)</h2>
+      <p class="section-lead">Production-grade browser extensions, native macOS studios, and multi-agent developer command centers.</p>
+      <div class="grid-2">
+        
+      <article class="card">
+        <div class="pill-row" style="margin-bottom: 4px;">
+          <span class="pill">Chrome Extension (MV3)</span>
+          <span class="pill pill-emerald">Freemium · Ed25519 Offline Key</span>
+        </div>
+        <h3>PageLens Interpret</h3>
+        <p style="color: #cbd5e1;">视频实时同声传译、纯享中文音频与后台配音预处理队列 Chrome 扩展</p>
+        <p style="font-size: 0.88rem; color: var(--text-muted); flex: 1;">
+          <strong>Pricing:</strong> Free Starter: $0 · Pro Annual: $19 / yr · Pro Lifetime Buyout: $29 buyout<br />
+          <strong>Activation:</strong> 首次完成一段视频实时同传或导出中文配音
+        </p>
+        <div class="cta-group" style="margin-bottom: 0;">
+          <a class="btn btn-primary" href="./pagelens-interpret/index.html">Explore PageLens Interpret</a>
+          <a class="btn btn-secondary" href="./pagelens-interpret/privacy.html">Privacy</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="pill-row" style="margin-bottom: 4px;">
+          <span class="pill">Chrome Extension (MV3)</span>
+          <span class="pill pill-emerald">Open-Core · 100% BYOK</span>
+        </div>
+        <h3>PageLens Agent</h3>
+        <p style="color: #cbd5e1;">BYOK 网页理解、结构化提取与受控填表 Chrome 侧栏</p>
+        <p style="font-size: 0.88rem; color: var(--text-muted); flex: 1;">
+          <strong>Pricing:</strong> OSS Free: $0 · Pro Workflow Pack: $39<br />
+          <strong>Activation:</strong> 在侧栏完成首次网页结构化提取或受控表单填充预览
+        </p>
+        <div class="cta-group" style="margin-bottom: 0;">
+          <a class="btn btn-primary" href="./pagelens-agent/index.html">Explore PageLens Agent</a>
+          <a class="btn btn-secondary" href="./pagelens-agent/privacy.html">Privacy</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="pill-row" style="margin-bottom: 4px;">
+          <span class="pill">macOS Native + Web</span>
+          <span class="pill pill-emerald">Freemium · Ed25519 Offline Key</span>
+        </div>
+        <h3>Audiobook Studio</h3>
+        <p style="color: #cbd5e1;">把 PDF 与长文拆成自然短段，用本地 Index-TTS 生成高拟真有声书</p>
+        <p style="font-size: 0.88rem; color: var(--text-muted); flex: 1;">
+          <strong>Pricing:</strong> Free Edition: $0 · Desktop Pro: $29<br />
+          <strong>Activation:</strong> 导入首篇 PDF/长文并合成为完整章节有声书音频
+        </p>
+        <div class="cta-group" style="margin-bottom: 0;">
+          <a class="btn btn-primary" href="./audiobook/index.html">Explore Audiobook Studio</a>
+          <a class="btn btn-secondary" href="./audiobook/privacy.html">Privacy</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="pill-row" style="margin-bottom: 4px;">
+          <span class="pill">Self-Hosted + Mobile Pro</span>
+          <span class="pill pill-emerald">Open-Core · Self-Hostable</span>
+        </div>
+        <h3>Hyper VibeKanban</h3>
+        <p style="color: #cbd5e1;">本机多 Coding Agent 并行看板、Worktree 工厂与手机远程控制中心</p>
+        <p style="font-size: 0.88rem; color: var(--text-muted); flex: 1;">
+          <strong>Pricing:</strong> Self-Hosted Free: $0 · Remote Pro: $49 / yr<br />
+          <strong>Activation:</strong> 创建首个隔离 Git Worktree 任务并并行调度 Coding Agent
+        </p>
+        <div class="cta-group" style="margin-bottom: 0;">
+          <a class="btn btn-primary" href="./hyper-vibekanban/index.html">Explore Hyper VibeKanban</a>
+          <a class="btn btn-secondary" href="./hyper-vibekanban/privacy.html">Privacy</a>
+        </div>
+      </article>
+      </div>
+    </section>
+
+    <section id="lead-magnets">
+      <h2>Free Interactive Learning Tools &amp; Lead Magnets (2)</h2>
+      <p class="section-lead">Standalone MIT-licensed interactive tools driving contextual, UTM-attributed discovery to flagship products.</p>
+      <div class="grid-2">
+        
+      <article class="card">
+        <div class="pill-row" style="margin-bottom: 4px;">
+          <span class="pill">Free Lead Magnet</span>
+          <span class="pill pill-emerald">→ pagelens-interpret</span>
+        </div>
+        <h3>Rubik&#39;s Cube Learn · 3D 魔方交互式教学</h3>
+        <p style="color: var(--text-muted);">零基础 3D 交互拆解层先法与 CFOP 公式演练免费在线工具</p>
+        <p style="font-size: 0.9rem;">
+          <strong>Contextual Hook:</strong> 正在刷外语速拧魔方大神视频或海外公开课？用 PageLens Interpret 一键开启浏览器实时中文同传与纯享配音
+        </p>
+        <p style="font-size: 0.84rem; color: var(--text-muted);">
+          Embed Snippet: <code>&lt;script src="./banners/rubiks-cube-learn.js" defer&gt;&lt;/script&gt;</code>
+        </p>
+        <div class="cta-group" style="margin-bottom: 0;">
+          <a class="btn btn-secondary" href="https://opc.example.com/tools/rubiks-cube-learn">Open Free Tool</a>
+          <a class="btn btn-primary" href="https://opc.example.com/pagelens-interpret?utm_source=rubiks-cube-learn&amp;utm_medium=banner&amp;utm_campaign=lm_rubiks_cube_learn&amp;utm_content=pagelens-interpret">Attributed Flagship Link</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="pill-row" style="margin-bottom: 4px;">
+          <span class="pill">Free Lead Magnet</span>
+          <span class="pill pill-emerald">→ audiobook</span>
+        </div>
+        <h3>BaZi &amp; ZiWei Learning · 八字紫微结构化研习工具</h3>
+        <p style="color: var(--text-muted);">传统典籍排盘结构化图谱、术语对照与交互式研习笔记免费工具</p>
+        <p style="font-size: 0.9rem;">
+          <strong>Contextual Hook:</strong> 想把古籍 PDF 与万字深度研习长文转成通勤随时听的播客？试试本地 Index-TTS 高拟真有声书工具 Audiobook
+        </p>
+        <p style="font-size: 0.84rem; color: var(--text-muted);">
+          Embed Snippet: <code>&lt;script src="./banners/bazi-ziwei-learning.js" defer&gt;&lt;/script&gt;</code>
+        </p>
+        <div class="cta-group" style="margin-bottom: 0;">
+          <a class="btn btn-secondary" href="https://opc.example.com/tools/bazi-ziwei-learning">Open Free Tool</a>
+          <a class="btn btn-primary" href="https://opc.example.com/audiobook?utm_source=bazi-ziwei-learning&amp;utm_medium=banner&amp;utm_campaign=lm_bazi_ziwei_learning&amp;utm_content=audiobook">Attributed Flagship Link</a>
+        </div>
+      </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div><strong>OPC Studio</strong> · Powered by <code>opc-gtm-kit</code></div>
+      <div>Support: <a href="mailto:support@example.com">support@example.com</a></div>
+    </div>
+  </footer>
+</body>
+</html>

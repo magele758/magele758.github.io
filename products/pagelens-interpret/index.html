@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PageLens Interpret — 视频实时同声传译、纯享中文音频与后台配音预处理队列 Chrome 扩展</title>
+  <meta name="description" content="一键开启浏览器内实时中文同声传译与纯享中文音轨，支持后台队列批量预处理配音，像听母语播客一样刷完硬核外语视频。" />
+  <style>
+  :root {
+    --bg: #0b1020;
+    --bg-card: #121a30;
+    --bg-elevated: #182341;
+    --text: #f1f5f9;
+    --text-muted: #94a3b8;
+    --accent: #6366f1;
+    --accent-hover: #818cf8;
+    --accent-emerald: #10b981;
+    --border: rgba(148, 163, 184, 0.18);
+    --radius: 14px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", sans-serif;
+    background: radial-gradient(circle at 20% 0%, #172042 0%, var(--bg) 55%);
+    color: var(--text);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: #a5b4fc; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+  .topbar {
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: rgba(11, 16, 32, 0.85);
+  }
+  .topbar-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    gap: 16px;
+  }
+  .brand { font-weight: 700; font-size: 1.05rem; color: var(--text); letter-spacing: -0.01em; }
+  .nav-links { display: flex; gap: 18px; font-size: 0.92rem; }
+  .pill-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    background: rgba(99, 102, 241, 0.16);
+    color: #c7d2fe;
+    border: 1px solid rgba(99, 102, 241, 0.35);
+  }
+  .pill-emerald {
+    background: rgba(16, 185, 129, 0.15);
+    color: #6ee7b7;
+    border-color: rgba(16, 185, 129, 0.35);
+  }
+  .hero { padding: 72px 0 56px; }
+  .pain-box {
+    background: rgba(244, 63, 94, 0.09);
+    border-left: 3px solid #fb7185;
+    padding: 10px 16px;
+    border-radius: 0 8px 8px 0;
+    color: #fda4af;
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+    max-width: 820px;
+  }
+  h1 {
+    font-size: clamp(2rem, 4.2vw, 3.1rem);
+    line-height: 1.18;
+    letter-spacing: -0.025em;
+    margin-bottom: 16px;
+    max-width: 880px;
+  }
+  .outcome {
+    font-size: 1.14rem;
+    color: #cbd5e1;
+    max-width: 820px;
+    margin-bottom: 28px;
+  }
+  .cta-group { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; margin-bottom: 16px; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 13px 24px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.98rem;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: transform 0.12s ease, background 0.15s ease;
+    text-decoration: none !important;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-primary { background: var(--accent); color: #ffffff; }
+  .btn-primary:hover { background: var(--accent-hover); }
+  .btn-secondary {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text);
+    border-color: var(--border);
+  }
+  .btn-secondary:hover { background: rgba(255, 255, 255, 0.1); }
+  .micro-goal { font-size: 0.86rem; color: var(--text-muted); }
+  section { padding: 52px 0; border-top: 1px solid var(--border); }
+  h2 { font-size: 1.75rem; margin-bottom: 10px; letter-spacing: -0.02em; }
+  .section-lead { color: var(--text-muted); margin-bottom: 28px; max-width: 720px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+  .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 22px; }
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 26px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .card-highlight {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.4), 0 16px 38px rgba(15, 23, 42, 0.55);
+    background: linear-gradient(180deg, #172243 0%, var(--bg-card) 100%);
+  }
+  .step-badge {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.78rem;
+    color: #818cf8;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .price-tag { font-size: 2.1rem; font-weight: 800; letter-spacing: -0.03em; }
+  .feature-list { list-style: none; display: flex; flex-direction: column; gap: 9px; margin: 10px 0 18px; flex: 1; }
+  .feature-list li::before { content: "✓ "; color: var(--accent-emerald); font-weight: 700; }
+  .perm-table { width: 100%; border-collapse: collapse; margin-top: 16px; font-size: 0.92rem; }
+  .perm-table th, .perm-table td {
+    text-align: left;
+    padding: 11px 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  .perm-table th { color: var(--text-muted); font-weight: 600; }
+  .waitlist-box {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px;
+    max-width: 680px;
+  }
+  .form-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 16px; }
+  .input {
+    flex: 1;
+    min-width: 220px;
+    padding: 12px 15px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: #0b1020;
+    color: var(--text);
+    font-size: 0.96rem;
+  }
+  .status-msg { margin-top: 12px; font-size: 0.9rem; min-height: 1.4em; color: #6ee7b7; }
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 36px 0 48px;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+  .footer-inner { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 18px; }
+  .footer-links { display: flex; flex-wrap: wrap; gap: 18px; }
+  code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 2px 6px;
+    border-radius: 5px;
+    font-size: 0.86em;
+  }
+</style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="../index.html">OPC Studio · PageLens Interpret</a>
+      <nav class="nav-links">
+        <a href="#workflow">3-Step Workflow</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#trust">Privacy Pledge</a>
+        <a href="#waitlist">Early Access</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero" style="border-top: none;">
+      <div class="pill-row">
+        <span class="pill">Chrome Extension (MV3)</span>
+        <span class="pill pill-emerald">Freemium · Ed25519 Offline Key</span>
+      </div>
+      <div class="pain-box">
+        <strong>Pain Point:</strong> 看外语技术演讲、生肉公开课与长视频时字幕割裂、机翻断句生硬，眼睛盯字幕就漏看代码与演示画面。
+      </div>
+      <h1>PageLens Interpret — 视频实时同声传译、纯享中文音频与后台配音预处理队列 Chrome 扩展</h1>
+      <p class="outcome">一键开启浏览器内实时中文同声传译与纯享中文音轨，支持后台队列批量预处理配音，像听母语播客一样刷完硬核外语视频。</p>
+      <div class="cta-group">
+        <a class="btn btn-primary js-utm-link" href="https://checkout.opc.example.com/pagelens-interpret?tier=pro_buyout">
+          一次买断 Pro ($29)
+        </a>
+        <a class="btn btn-secondary js-utm-link" href="https://github.com/opc-example/pagelens-interpret">
+          GitHub / Docs
+        </a>
+        <a class="btn btn-secondary" href="#waitlist">
+          Join Release Waitlist
+        </a>
+      </div>
+      <p class="micro-goal">
+        Activation Milestone: <strong>首次完成一段视频实时同传或导出中文配音</strong>
+      </p>
+    </section>
+
+    <section id="workflow">
+      <h2>How It Works in 3 Steps</h2>
+      <p class="section-lead">Zero configuration bloat — go from install to your first verified result in under two minutes.</p>
+      <div class="grid-3">
+        
+      <article class="card">
+        <span class="step-badge">01 · Capture</span>
+        <h3>点开任意外语视频并激活当前标签页</h3>
+        <p style="color: var(--text-muted);">无需授予全网宽泛权限，点击扩展按钮即可基于 activeTab + tabCapture 接入当前视频音轨与时间轴。</p>
+      </article>
+
+      <article class="card">
+        <span class="step-badge">02 · Interpret</span>
+        <h3>选择实时同传或加入后台配音队列</h3>
+        <p style="color: var(--text-muted);">边看边听低延迟中文同传，或将多集长视频推入后台预处理队列，智能语义断句并合成自然中文配音。</p>
+      </article>
+
+      <article class="card">
+        <span class="step-badge">03 · Pure Audio</span>
+        <h3>切换纯享中文音频或导出复习音轨</h3>
+        <p style="color: var(--text-muted);">一键切换原声混合/纯享中文音轨，或导出合成后的中文学习音频随时离线复听。</p>
+      </article>
+      </div>
+      <div class="card" style="margin-top: 22px;">
+        <h3>Why Makers &amp; Power Users Switch to PageLens Interpret</h3>
+        <ul class="feature-list" style="margin-bottom: 0;">
+          <li>实时同声传译 + 原声自动闪避（Audio Ducking），保留演讲者现场感同时清晰听懂中文</li>
+<li>纯享中文音频模式：静音原外语音轨，输出自然断句的高拟真中文配音</li>
+<li>后台配音预处理队列：提前排队处理长视频与系列课程，点开即享零等待丝滑播放</li>
+<li>支持 BYOK 自有模型密钥与 Ed25519 离线公钥校验，买断制无强制云账号锁定</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="pricing">
+      <h2>Transparent, Indie-Friendly Pricing</h2>
+      <p class="section-lead">Start free immediately. Paid Pro tiers verify offline using cryptographic <strong>Ed25519</strong> public-key signatures — no forced cloud account or recurring SaaS trap.</p>
+      <div class="grid-3">
+        
+      <article class="card ">
+        <div class="pill-row" style="margin-bottom: 4px;">
+          <span class="pill">Free Starter</span>
+          
+        </div>
+        <div class="price-tag">$0</div>
+        <ul class="feature-list">
+          <li>每日基础时长视频实时同声传译</li>
+<li>支持 BYOK 自带语音识别与翻译 API Key</li>
+<li>原声闪避与双语时间轴对照</li>
+<li>100% 本地配置存储，零遥测追踪</li>
+        </ul>
+        <a class="btn btn-secondary js-utm-link" href="https://github.com/opc-example/pagelens-interpret">
+          免费安装扩展
+        </a>
+      </article>
+
+      <article class="card ">
+        <div class="pill-row" style="margin-bottom: 4px;">
+          <span class="pill">Pro Annual</span>
+          <span class="pill pill-emerald">Ed25519 Offline Key</span>
+        </div>
+        <div class="price-tag">$19 / yr</div>
+        <ul class="feature-list">
+          <li>无限时长实时同传与纯享中文音频模式</li>
+<li>后台配音预处理队列与多视频批处理</li>
+<li>支持导出中文配音音频与时间轴字幕</li>
+<li>Ed25519 离线签名授权码，年内全版本更新</li>
+        </ul>
+        <a class="btn btn-secondary js-utm-link" href="https://checkout.opc.example.com/pagelens-interpret?tier=pro_yearly">
+          订阅 Pro 年付 ($19/yr)
+        </a>
+      </article>
+
+      <article class="card card-highlight">
+        <div class="pill-row" style="margin-bottom: 4px;">
+          <span class="pill">Pro Lifetime Buyout</span>
+          <span class="pill pill-emerald">Ed25519 Offline Key</span>
+        </div>
+        <div class="price-tag">$29 buyout</div>
+        <ul class="feature-list">
+          <li>包含全部 Pro 功能：实时同传、纯享中文音频与后台预处理队列</li>
+<li>一次性付款 $29 买断，无自动续费焦虑</li>
+<li>Ed25519 非对称离线授权校验，断网或无中心服务器仍可永久验签激活</li>
+<li>最多 3 台个人设备离线激活与优先工单支持</li>
+        </ul>
+        <a class="btn btn-primary js-utm-link" href="https://checkout.opc.example.com/pagelens-interpret?tier=pro_buyout">
+          一次买断 Pro ($29)
+        </a>
+      </article>
+      </div>
+    </section>
+
+    <section id="trust">
+      <h2>Privacy &amp; Local-First Trust Pledge</h2>
+      <div class="card">
+        <h3>Local-First 音频管线 · 最小权限原则 · BYOK 密钥不出浏览器</h3>
+        <ul class="feature-list" style="margin-bottom: 0;">
+          <li>仅在点击激活时访问当前标签页（activeTab + tabCapture），绝不注入全站后台监控脚本。</li>
+<li>BYOK 密钥仅保存在本地 chrome.storage.local，直连你自选的模型服务商，不经任何中间服务器留存。</li>
+<li>Pro 授权采用 Ed25519 公钥本地离线验签，无需绑定个人隐私账号即可解锁完整能力。</li>
+        </ul>
+        
+      <div style="margin-top: 22px;">
+        <h3 style="font-size: 1.05rem; margin-bottom: 6px;">Transparent MV3 Permission Scope</h3>
+        <table class="perm-table">
+          <thead>
+            <tr>
+              <th>Permission</th>
+              <th>Exact Local-First Justification</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td><code>activeTab</code></td>
+                <td>仅在用户主动点击扩展图标开启当前视频同传时，获取当前活动标签页的视频元信息与播放时间轴。</td>
+              </tr>
+
+              <tr>
+                <td><code>storage</code></td>
+                <td>在浏览器本地安全存储用户的模型配置、BYOK API 密钥、配音偏好与 Ed25519 离线授权凭证，不同步至第三方广告服务器。</td>
+              </tr>
+
+              <tr>
+                <td><code>offscreen</code></td>
+                <td>在 Manifest V3 Service Worker 架构下创建隔离 Offscreen Document，用于低延迟音频重采样、混音与中文语音合成播放。</td>
+              </tr>
+
+              <tr>
+                <td><code>tabCapture</code></td>
+                <td>仅在用户显式点击开始同传后捕获当前视频标签页音频流以执行实时语音识别与原声闪避（Ducking），不后台静默录制。</td>
+              </tr>
+          </tbody>
+        </table>
+      </div>
+      </div>
+    </section>
+
+    <section id="waitlist">
+      <div class="waitlist-box">
+        <h2>Get Release Drops &amp; Workflow Templates</h2>
+        <p style="color: var(--text-muted); margin-top: 6px;">
+          Join the privacy-safe waitlist (emails are SHA-256 hashed with masked storage by default) to receive the Day-0 Quick-Start &amp; Day-3 Power Tips sequence.
+        </p>
+        <form id="waitlist-form" action="/api/v1/waitlist/join" method="POST">
+          <input type="hidden" name="product" value="PageLens" />
+          <input type="hidden" name="channel" value="" />
+          <input type="hidden" name="campaign" value="" />
+          <div class="form-row">
+            <input class="input" type="email" name="email" placeholder="you@example.com" required aria-label="Email address" />
+            <input class="input" type="text" name="note" placeholder="Optional: your #1 use case" aria-label="Use case note" />
+            <button class="btn btn-primary" type="submit">Join Waitlist</button>
+          </div>
+          <div id="waitlist-status" class="status-msg" role="status" aria-live="polite"></div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div>
+        <strong>OPC Studio</strong> · Contact: <a href="mailto:support@example.com">support@example.com</a>
+      </div>
+      <div class="footer-links">
+        <a href="./privacy.html">Privacy Policy</a>
+        <a href="./terms.html">Terms of Service</a>
+        <a href="./refund.html">Refund Policy</a>
+        <a href="https://opc.example.com/pagelens-interpret/changelog">Changelog</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      var cfg = {"product":"PageLens","slug":"pagelens-interpret","apiBase":"","defaultChannel":"","defaultCampaign":""};
+      var search = new URLSearchParams(window.location.search);
+      var src = search.get("utm_source") || search.get("ref") || cfg.defaultChannel || "";
+      var camp = search.get("utm_campaign") || cfg.defaultCampaign || "";
+      var med = search.get("utm_medium") || "";
+
+      if (src || camp) {
+        var links = document.querySelectorAll(".js-utm-link");
+        for (var i = 0; i < links.length; i++) {
+          try {
+            var u = new URL(links[i].href, window.location.origin);
+            if (src && !u.searchParams.get("utm_source")) u.searchParams.set("utm_source", src);
+            if (med && !u.searchParams.get("utm_medium")) u.searchParams.set("utm_medium", med);
+            if (camp && !u.searchParams.get("utm_campaign")) u.searchParams.set("utm_campaign", camp);
+            links[i].href = u.toString();
+          } catch (_) {}
+        }
+      }
+
+      var form = document.getElementById("waitlist-form");
+      var statusEl = document.getElementById("waitlist-status");
+      if (form && statusEl) {
+        form.addEventListener("submit", function(ev) {
+          ev.preventDefault();
+          var fd = new FormData(form);
+          var payload = {
+            email: String(fd.get("email") || ""),
+            product: cfg.product,
+            channel: src || String(fd.get("channel") || "direct"),
+            campaign: camp || String(fd.get("campaign") || ""),
+            note: String(fd.get("note") || "")
+          };
+          statusEl.textContent = "Submitting...";
+          fetch((cfg.apiBase || "") + "/api/v1/waitlist/join", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+          })
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+              if (data && data.ok) {
+                statusEl.textContent = "You are on the list (" + data.waitlist.emailMasked + ")! D0 Welcome & D3 Tips queued.";
+                form.reset();
+              } else {
+                statusEl.textContent = (data && data.error) ? String(data.error) : "Submission failed.";
+              }
+            })
+            .catch(function() {
+              statusEl.textContent = "Network unavailable in offline preview.";
+            });
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
